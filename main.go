@@ -39,34 +39,8 @@ func main() {
 	http.ListenAndServe(":8082", r)
 }
 
-func login(w http.ResponseWriter, r *http.Request) {
-	session, err := store.Get(r, "login-session")
-	FeatchError(err)
-	_, ok := session.Values["session"]
-	if ok {
-		http.Redirect(w, r, "/", http.StatusNotFound)
-	}
-	er := loginView.Template.Execute(w, nil)
-	FeatchError(er)
-}
-
-func home(w http.ResponseWriter, r *http.Request) {
-	err := homeView.Template.Execute(w, nil)
-	FeatchError(err)
-}
-
-func about(w http.ResponseWriter, r *http.Request) {
-	err := aboutView.Template.Execute(w, nil)
-	FeatchError(err)
-}
-
-func notFount(w http.ResponseWriter, r *http.Request) {
-	err := notFountView.Template.Execute(w, nil)
-	FeatchError(err)
-}
-
-func FeatchError(err error) {
+func FetchError(err error) {
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 }

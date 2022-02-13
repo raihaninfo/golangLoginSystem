@@ -13,6 +13,10 @@ func login(w http.ResponseWriter, r *http.Request) {
 	FetchError(er)
 }
 
+func loginAuth(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func home(w http.ResponseWriter, r *http.Request) {
 	err := homeView.Template.Execute(w, nil)
 	FetchError(err)

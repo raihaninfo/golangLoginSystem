@@ -32,6 +32,7 @@ func main() {
 	r.PathPrefix("/asset/").Handler(http.StripPrefix("/asset/", http.FileServer(http.Dir("views/fron-end/asset"))))
 	r.NotFoundHandler = http.HandlerFunc(notFount)
 	r.HandleFunc("/login", login)
+	r.HandleFunc("/loginauth", loginAuth)
 	r.HandleFunc("/", home)
 	r.HandleFunc("/about", about)
 

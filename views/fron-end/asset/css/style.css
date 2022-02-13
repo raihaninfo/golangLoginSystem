@@ -6,6 +6,10 @@ body {
     background: #d1d1d1;
 }
 
+a{
+    text-decoration: none;
+}
+
 #wrapper {
     width: 1000px;
     margin: 50px auto 0;
@@ -231,4 +235,12 @@ body {
     display: block;
     margin: 55px auto 10px auto;
    cursor: pointer;
+}
+
+.forgot{
+    text-align: center;
+}
+
+.createAc{
+    border-top: 2px solid green;
 }

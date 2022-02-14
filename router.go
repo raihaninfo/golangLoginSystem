@@ -56,7 +56,6 @@ func forgotPassAuth(w http.ResponseWriter, r *http.Request) {
 			err := fotgotAuthView.Template.Execute(w, "Check Your Email")
 			emailSend(isEmail)
 			FetchError(err)
-			fmt.Println(randN)
 		}
 	} else {
 		err := fotgotAuthErrorView.Template.Execute(w, "Your account does not exist")
@@ -90,6 +89,7 @@ func checkPass(w http.ResponseWriter, r *http.Request) {
 		UpdatePassword(pass1, isEmail)
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
+	// ekhane amar kisu kaj baki ase, pore korbo insha-allah
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {

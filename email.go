@@ -17,7 +17,7 @@ func emailSend(email string) {
 	smtpPort := "587"
 
 	// Message.
-	mainMessage := fmt.Sprintf("Your code is %v", randN)
+	mainMessage := fmt.Sprintf("Welcome to master Academy, Your password  verification code is %v \n", randN)
 	message := []byte(mainMessage)
 
 	// Authentication.

@@ -8,11 +8,12 @@ import (
 )
 
 var (
-	homeView     *views.View
-	aboutView    *views.View
-	notFountView *views.View
-	loginView    *views.View
-	signupView   *views.View
+	homeView       *views.View
+	aboutView      *views.View
+	notFountView   *views.View
+	loginView      *views.View
+	signupView     *views.View
+	forgotPassView *views.View
 )
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +30,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 		FetchError(err)
 	}
 
+}
+
+func forgotPass(w http.ResponseWriter, r *http.Request) {
+	err := forgotPassView.Template.Execute(w, nil)
+	FetchError(err)
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {

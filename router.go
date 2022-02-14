@@ -1,6 +1,10 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/gorilla/sessions"
+)
 
 func login(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "login-session")
@@ -14,6 +18,33 @@ func login(w http.ResponseWriter, r *http.Request) {
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	email := r.FormValue("email")
+	password := r.FormValue("password")
+	user, err := GetUser(email, password)
+	FetchError(err)
+	if len(user) > 0 {
+		session, err := store.Get(r, "login-session")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		session.Options = &sessions.Options{
+			Path:     "/",
+			MaxAge:   86400 * 30,
+			HttpOnly: true,
+		}
+		session.Values["username"] = "username"
+		err = session.Save(r, w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		http.Redirect(w, r, "/", http.StatusFound)
+	} else {
+		err := loginView.Template.Execute(w, "Please give me right username or password")
+		FetchError(err)
+	}
 
 }
 

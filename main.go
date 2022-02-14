@@ -24,6 +24,11 @@ func init() {
 }
 
 func main() {
+	// jj, err := GetUser("raihanmahmudi35@gmail.com", "raihan123")
+	// FetchError(err)
+	// jjs := jj[0]["Email"]
+	// fmt.Println(jjs)
+
 	homeView = views.NewView("views/fron-end/index.gohtml")
 	aboutView = views.NewView("views/fron-end/about.gohtml")
 	notFountView = views.NewView("views/fron-end/notfount.gohtml")

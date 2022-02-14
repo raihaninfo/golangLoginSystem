@@ -57,7 +57,6 @@ func forgotPassAuth(w http.ResponseWriter, r *http.Request) {
 			emailSend(isEmail)
 			FetchError(err)
 			fmt.Println(randN)
-
 		}
 	} else {
 		err := fotgotAuthErrorView.Template.Execute(w, "Your account does not exist")
@@ -72,7 +71,6 @@ func forgotCodeVerify(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	fmt.Println(randN)
 	codeSt := r.FormValue("forgotEmail")
-
 	codeint, err := strconv.ParseInt(codeSt, 10, 64)
 	FetchError(err)
 	if randN == int(codeint) {
@@ -122,7 +120,6 @@ func loginAuth(w http.ResponseWriter, r *http.Request) {
 		err := loginView.Template.Execute(w, "Please give me right username or password")
 		FetchError(err)
 	}
-
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -151,7 +148,6 @@ func about(w http.ResponseWriter, r *http.Request) {
 }
 
 func signup(w http.ResponseWriter, r *http.Request) {
-
 	err := signupView.Template.Execute(w, nil)
 	FetchError(err)
 }

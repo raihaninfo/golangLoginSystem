@@ -10,13 +10,6 @@ import (
 	"github.com/raihaninfo/golangLoginSystem/views"
 )
 
-var (
-	homeView     *views.View
-	aboutView    *views.View
-	notFountView *views.View
-	loginView    *views.View
-)
-
 var store = sessions.NewCookieStore([]byte("secret-password"))
 
 func init() {
@@ -28,6 +21,7 @@ func main() {
 	aboutView = views.NewView("views/fron-end/about.gohtml")
 	notFountView = views.NewView("views/fron-end/notfount.gohtml")
 	loginView = views.NewView("views/fron-end/login.gohtml")
+	signupView = views.NewView("views/fron-end/signin.gohtml")
 	r := mux.NewRouter()
 	r.PathPrefix("/asset/").Handler(http.StripPrefix("/asset/", http.FileServer(http.Dir("views/fron-end/asset"))))
 	r.NotFoundHandler = http.HandlerFunc(notFount)
@@ -35,6 +29,9 @@ func main() {
 	r.HandleFunc("/loginauth", loginAuth)
 	r.HandleFunc("/", home)
 	r.HandleFunc("/about", about)
+	r.HandleFunc("/signup", signup)
+	r.HandleFunc("/signupauth", signupAuth)
+	r.HandleFunc("/logout", logout)
 
 	fmt.Println("Listening port :8082")
 	http.ListenAndServe(":8082", r)

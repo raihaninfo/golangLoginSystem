@@ -1,0 +1,30 @@
+{{template "Header"}}
+
+
+<div class="form">
+    <form method="POST" action="/signupauth">
+        <img class="login_img" src="asset/images/logo.png" alt="">
+        <h1 class="login_title">GolangLoginSystem</h1>
+        <input required class="login_input" name="fullName" type="text" placeholder="Enter your Full Name">
+        
+        <input required class="login_input" name="email" type="email" placeholder="Enter Your Email">
+
+        <input required class="login_input" name="userName" type="text" placeholder="Enter Your User Name">
+
+        <input required class="login_input" name="mobileNumber" type="tel" placeholder="Enter Your Mobile Number">
+
+        <input required class="login_input" name="Password" type="password" placeholder="Enter Your Password">
+
+
+        <p style="text-align: center; color: red;">{{.}}</p>
+        <input class="login_input login_submit" type="submit" value="Sign Up" class="signin">
+    </form>
+    <div class="createAc">
+        <p>Already Have a account? <a href="/login"> Login hear </a></p>
+    </div>
+
+</div>
+
+</body>
+
+</html>

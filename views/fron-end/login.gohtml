@@ -5,14 +5,14 @@
     <form method="POST" action="/loginauth">
         <img class="login_img" src="asset/images/logo.png" alt="">
         <h1 class="login_title">GolangLoginSystem</h1>
-        <input class="login_input" name="email" type="email" placeholder="your Email type here...">
-        <input class="login_input" name="password" type="password" placeholder="password">
+        <input required class="login_input" name="email" type="email" placeholder="your Email type here...">
+        <input required class="login_input" name="password" type="password" placeholder="password">
         <p style="text-align: center; color: red;">{{.}}</p>
         <p class="forgot"><a href="/">Forgot password</a></p>
         <input class="login_input login_submit" type="submit" value="Login" class="signin">
     </form>
     <div class="createAc">
-        <p>Don't have an account? <a href="/"> Creat Your Account </a> it takes less than a minute</p>
+        <p>Don't have an account? <a href="/signup"> Creat Your Account </a> it takes less than a minute</p>
     </div>
 
 </div>

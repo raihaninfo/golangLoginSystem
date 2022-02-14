@@ -4,6 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gorilla/sessions"
+	"github.com/raihaninfo/golangLoginSystem/views"
+)
+
+var (
+	homeView     *views.View
+	aboutView    *views.View
+	notFountView *views.View
+	loginView    *views.View
+	signupView   *views.View
 )
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -76,6 +85,48 @@ func about(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
+}
+
+func signup(w http.ResponseWriter, r *http.Request) {
+
+	err := signupView.Template.Execute(w, nil)
+	FetchError(err)
+}
+
+func signupAuth(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	name := r.FormValue("fullName")
+	email := r.FormValue("email")
+	userName := r.FormValue("userName")
+	mobile := r.FormValue("mobileNumber")
+	password := r.FormValue("Password")
+
+	SignupUser(name, email, userName, mobile, password)
+	session, err := store.Get(r, "login-session")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	session.Options = &sessions.Options{
+		Path:     "/",
+		MaxAge:   86400 * 30,
+		HttpOnly: true,
+	}
+	session.Values["username"] = "username"
+	err = session.Save(r, w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
+func logout(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "login-session")
+	FetchError(err)
+	delete(session.Values, "username")
+	session.Save(r, w)
+	http.Redirect(w, r, "/login", http.StatusFound)
 }
 
 func notFount(w http.ResponseWriter, r *http.Request) {

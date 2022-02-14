@@ -14,6 +14,7 @@ var (
 	loginView      *views.View
 	signupView     *views.View
 	forgotPassView *views.View
+	fotgotAuthView *views.View
 )
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -35,6 +36,25 @@ func login(w http.ResponseWriter, r *http.Request) {
 func forgotPass(w http.ResponseWriter, r *http.Request) {
 	err := forgotPassView.Template.Execute(w, nil)
 	FetchError(err)
+}
+
+func forgotPassAuth(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	email := r.FormValue("forgotEmail")
+	userEmail, err := GetEmail(email)
+	FetchError(err)
+	if len(userEmail) > 0 {
+		isEmail := userEmail[0]["Email"].(string)
+		if email == isEmail {
+			err := fotgotAuthView.Template.Execute(w, "Check Your Email")
+			FetchError(err)
+
+		}
+	} else {
+		err := fotgotAuthView.Template.Execute(w, "Your account does not exist")
+		FetchError(err)
+	}
+
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {

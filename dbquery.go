@@ -16,7 +16,7 @@ func GetUser(userEmail, userPassword string) ([]map[string]interface{}, error) {
 	return row, nil
 }
 func GetEmail(email string) ([]map[string]interface{}, error) {
-	qs := fmt.Sprintf("SELECT Email FROM user WHERE Email='%s';", email)
+	qs := fmt.Sprintf("SELECT Email FROM user WHERE Email='%s' AND status=1;", email)
 
 	row, err := msql.GetAllRowsByQuery(qs, db)
 	FetchError(err)

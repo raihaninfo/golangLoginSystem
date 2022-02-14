@@ -23,6 +23,8 @@ func main() {
 	loginView = views.NewView("views/fron-end/login.gohtml")
 	signupView = views.NewView("views/fron-end/signin.gohtml")
 	forgotPassView= views.NewView("views/fron-end/forgotpass.gohtml")
+	fotgotAuthView= views.NewView("views/fron-end/forgetauth.gohtml")
+
 	r := mux.NewRouter()
 	r.PathPrefix("/asset/").Handler(http.StripPrefix("/asset/", http.FileServer(http.Dir("views/fron-end/asset"))))
 	r.NotFoundHandler = http.HandlerFunc(notFount)
@@ -34,6 +36,7 @@ func main() {
 	r.HandleFunc("/signupauth", signupAuth)
 	r.HandleFunc("/logout", logout)
 	r.HandleFunc("/forgot_pass", forgotPass)
+	r.HandleFunc("/forgot_pass_auth", forgotPassAuth)
 
 	fmt.Println("Listening port :8082")
 	http.ListenAndServe(":8082", r)

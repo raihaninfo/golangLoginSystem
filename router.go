@@ -1,20 +1,25 @@
 package main
 
 import (
+	"fmt"
+	"math/rand"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/sessions"
 	"github.com/raihaninfo/golangLoginSystem/views"
 )
 
 var (
-	homeView       *views.View
-	aboutView      *views.View
-	notFountView   *views.View
-	loginView      *views.View
-	signupView     *views.View
-	forgotPassView *views.View
-	fotgotAuthView *views.View
+	homeView            *views.View
+	aboutView           *views.View
+	notFountView        *views.View
+	loginView           *views.View
+	signupView          *views.View
+	forgotPassView      *views.View
+	fotgotAuthView      *views.View
+	fotgotAuthErrorView *views.View
+	updatePassView      *views.View
 )
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -38,23 +43,55 @@ func forgotPass(w http.ResponseWriter, r *http.Request) {
 	FetchError(err)
 }
 
+var isEmail string
+
 func forgotPassAuth(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	email := r.FormValue("forgotEmail")
 	userEmail, err := GetEmail(email)
 	FetchError(err)
 	if len(userEmail) > 0 {
-		isEmail := userEmail[0]["Email"].(string)
+		isEmail = userEmail[0]["Email"].(string)
 		if email == isEmail {
 			err := fotgotAuthView.Template.Execute(w, "Check Your Email")
+			emailSend(isEmail)
 			FetchError(err)
+			fmt.Println(randN)
 
 		}
 	} else {
-		err := fotgotAuthView.Template.Execute(w, "Your account does not exist")
+		err := fotgotAuthErrorView.Template.Execute(w, "Your account does not exist")
 		FetchError(err)
 	}
 
+}
+
+var randN int = rand.Intn(6000)
+
+func forgotCodeVerify(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	fmt.Println(randN)
+	codeSt := r.FormValue("forgotEmail")
+
+	codeint, err := strconv.ParseInt(codeSt, 10, 64)
+	FetchError(err)
+	if randN == int(codeint) {
+		err := updatePassView.Template.Execute(w, nil)
+		FetchError(err)
+	} else {
+		fmt.Println("No")
+	}
+
+}
+
+func checkPass(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	pass1 := r.FormValue("pass1")
+	pass2 := r.FormValue("pass2")
+	if pass1 == pass2 {
+		UpdatePassword(pass1, isEmail)
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {

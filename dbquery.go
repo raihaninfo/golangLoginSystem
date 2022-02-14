@@ -40,3 +40,9 @@ func SignupUser(name, email, username, mobile, password string) (int64, error) {
 	fmt.Println("Successfully Inserted", id)
 	return id, nil
 }
+
+func UpdatePassword(upPass, useremail string) (bool, error) {
+	qs := fmt.Sprintf("UPDATE user SET Password = '%s' WHERE Email='%s'", upPass, useremail)
+	row := msql.RawSQL(qs, db)
+	return row, nil
+}

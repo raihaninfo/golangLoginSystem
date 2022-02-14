@@ -9,12 +9,17 @@ import (
 func login(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "login-session")
 	FetchError(err)
-	_, ok := session.Values["session"]
+	_, ok := session.Values["username"]
 	if ok {
-		http.Redirect(w, r, "/", http.StatusNotFound)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
 	}
-	er := loginView.Template.Execute(w, nil)
-	FetchError(er)
+
+	if !ok {
+		err := loginView.Template.Execute(w, nil)
+		FetchError(err)
+	}
+
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {
@@ -49,13 +54,28 @@ func loginAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	err := homeView.Template.Execute(w, nil)
+	session, err := store.Get(r, "login-session")
 	FetchError(err)
+	_, ok := session.Values["username"]
+	if ok {
+		err := homeView.Template.Execute(w, nil)
+		FetchError(err)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
+
 }
 
 func about(w http.ResponseWriter, r *http.Request) {
-	err := aboutView.Template.Execute(w, nil)
+	session, err := store.Get(r, "login-session")
 	FetchError(err)
+	_, ok := session.Values["username"]
+	if ok {
+		err := aboutView.Template.Execute(w, nil)
+		FetchError(err)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 }
 
 func notFount(w http.ResponseWriter, r *http.Request) {

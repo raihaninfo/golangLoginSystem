@@ -88,8 +88,9 @@ func checkPass(w http.ResponseWriter, r *http.Request) {
 	if pass1 == pass2 {
 		UpdatePassword(pass1, isEmail)
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	} else {
+		updatePassView.Template.Execute(w, "Please Make sure Your password Both of same")
 	}
-	// ekhane amar kisu kaj baki ase, pore korbo insha-allah
 }
 
 func loginAuth(w http.ResponseWriter, r *http.Request) {

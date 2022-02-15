@@ -196,6 +196,7 @@ func logout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/login", http.StatusFound)
 }
 
+// not Fount Page
 func notFount(w http.ResponseWriter, r *http.Request) {
 	err := notFountView.Template.Execute(w, nil)
 	FetchError(err)

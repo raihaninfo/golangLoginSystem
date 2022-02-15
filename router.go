@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"net/http"
 	"strconv"
 
@@ -64,7 +63,7 @@ func forgotPassAuth(w http.ResponseWriter, r *http.Request) {
 
 }
 
-var randN int = rand.Intn(6000)
+var randN int = int(sixDigits())
 
 func forgotCodeVerify(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()

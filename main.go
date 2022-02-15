@@ -45,9 +45,3 @@ func main() {
 	fmt.Println("Listening port :8082")
 	http.ListenAndServe(":8082", r)
 }
-
-func FetchError(err error) {
-	if err != nil {
-		fmt.Println(err)
-	}
-}

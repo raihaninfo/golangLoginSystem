@@ -6,4 +6,4 @@
 - Sing up
 - Login
 - Logout
-- Password reset
+- Forget Password

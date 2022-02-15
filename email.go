@@ -17,8 +17,16 @@ func emailSend(email string) {
 	smtpPort := "587"
 
 	// Message.
-	mainMessage := fmt.Sprintf("Welcome to master Academy, Your password  verification code is %v \n", randN)
-	message := []byte(mainMessage)
+
+	subject := "Subject: GolanLoginSystem Account Recovery\n"
+
+	mainMessage := fmt.Sprintf("<body>Welcome to master Academy, Your password  verification code is <h2 style=\"text-align:center;\"><span style=\"font-size:40px;border:2px solid black;padding:10px\">%v</span></h2> \n</body>", randN)
+
+	body := mainMessage
+	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	message := []byte(subject + mime + body)
+
+	// message := []byte(mainMessage)
 
 	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)

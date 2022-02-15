@@ -148,8 +148,16 @@ func about(w http.ResponseWriter, r *http.Request) {
 }
 
 func signup(w http.ResponseWriter, r *http.Request) {
-	err := signupView.Template.Execute(w, nil)
+	session, err := store.Get(r, "login-session")
 	FetchError(err)
+	_, ok := session.Values["username"]
+	if !ok {
+		err := signupView.Template.Execute(w, nil)
+		FetchError(err)
+	} else {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+
 }
 
 func signupAuth(w http.ResponseWriter, r *http.Request) {

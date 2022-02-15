@@ -26,8 +26,6 @@ func emailSend(email string) {
 	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 	message := []byte(subject + mime + body)
 
-	// message := []byte(mainMessage)
-
 	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 

@@ -1,6 +1,5 @@
 # Golang Login System
-
-## Golang Ang Sqlite database
+## Golang Ang Sqlite database 
 
 ## Features
 
@@ -18,11 +17,10 @@
 - Database Sqlite [go-sqlite3](https://github.com/mattn/go-sqlite3) and [msql](https://github.com/mateors/msql)
 
 ## Frontend
-
 - Server side templating [Go Html Templates](https://pkg.go.dev/html/template)
-- Frontend `Pure Html css`
-
-```
+- Frontend ```Pure Html css```
+## Modules
+```go
 require (
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1

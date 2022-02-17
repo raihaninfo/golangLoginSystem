@@ -12,7 +12,7 @@
 
 ## Backend
 
-- HTTP Middleware [Mux](https://github.com/gorilla/mux)
+- HTTP Middleware [gorilla/mux](https://github.com/gorilla/mux)
 - Login Session [gorilla/sessions](https://github.com/gorilla/sessions)
 - Database Sqlite [go-sqlite3](https://github.com/mattn/go-sqlite3) and [msql](https://github.com/mateors/msql)
 

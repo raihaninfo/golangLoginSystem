@@ -30,3 +30,11 @@ require (
 
 require github.com/gorilla/securecookie v1.1.1 // indirect
 ```
+
+```mermaid
+graph LR
+A[MVC] --> B((Model))
+A --> C((Controller))
+B --> D((Controller))
+C --> D(View)
+```
